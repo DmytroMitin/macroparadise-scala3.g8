@@ -18,8 +18,13 @@ normally overconstrain that feature-version contract.
 
 The build has three projects: `macro-annotations` owns the marker annotation,
 `macro-handlers` compiles the precompiled handler, and `core` consumes the
-marker normally. The handler does not appear on the ordinary `core` runtime
-dependency graph.
+marker with the marker-only `provided->compile` mapping. The marker is present
+while `core` compiles but is absent from its ordinary runtime classpath. The
+handler is also a compile-time tool and does not appear on the ordinary `core`
+runtime dependency graph.
+
+If you later split markers or handlers across multiple producer projects, see
+the product integration guide for the multi-local helper overload.
 
 Compile and run the example:
 

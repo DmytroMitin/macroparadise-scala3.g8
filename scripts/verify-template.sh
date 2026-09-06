@@ -40,6 +40,12 @@ rg -q 'sbt-macroparadise.*(0\.1\.1|\$macroparadise_version\$)' "$g8_root/project
 rg -q 'CrossVersion\.full' "$g8_root/build.sbt"
 rg -q 'MacroParadiseIntegration\.precompiledProjects' "$g8_root/build.sbt"
 rg -q 'macroParadiseCompilerProductVersion' "$g8_root/build.sbt"
+rg -q 'dependsOn\(macroAnnotations % "provided->compile"\)' "$g8_root/build.sbt"
+
+if rg -n '@compileTimeOnly' "$g8_root"; then
+  echo "template marker must not use @compileTimeOnly" >&2
+  exit 1
+fi
 
 if find "$g8_root/\$package\$" -type f -print -quit 2>/dev/null | rg -q .; then
   echo "Scala sources must be nested under their sbt subprojects" >&2

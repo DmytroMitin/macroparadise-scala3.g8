@@ -24,9 +24,11 @@ The generated project contains three separate sbt projects:
 - `core/` is the ordinary consumer and prints a greeting produced by a
   generated method.
 
-The handler is a compile-time tool and is not placed on the consumer's normal
-runtime dependency graph. Macro-Paradise remains experimental; pin the exact
-Scala and Macro-Paradise versions shown by the template.
+The marker-only project uses `provided->compile`: its API is present while the
+consumer compiles and absent at runtime. The handler is a compile-time tool and
+is not placed on the consumer's normal runtime dependency graph. Macro-Paradise
+remains experimental; pin the exact Scala and Macro-Paradise versions shown by
+the template.
 
 ## JDK selection hint
 

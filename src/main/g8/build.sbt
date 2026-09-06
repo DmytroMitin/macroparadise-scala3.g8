@@ -42,7 +42,7 @@ lazy val macroHandlers = (project in file("macro-handlers"))
   )
 
 lazy val core = (project in file("core"))
-  .dependsOn(macroAnnotations)
+  .dependsOn(macroAnnotations % "provided->compile")
   .settings(
     name := "core",
     MacroParadiseIntegration.precompiledProjects(macroAnnotations, macroHandlers)
