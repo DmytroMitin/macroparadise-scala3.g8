@@ -5,6 +5,7 @@ template_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
 g8_root="$template_root/src/main/g8"
 
 required_files=(
+  ".java-version"
   "default.properties"
   "README.md"
   "build.sbt"
@@ -21,6 +22,11 @@ for relative_path in "${required_files[@]}"; do
     exit 1
   fi
 done
+
+if [[ $(wc -c < "$g8_root/.java-version") -ne 3 ]] || ! rg -q '^25$' "$g8_root/.java-version"; then
+  echo "template .java-version must contain exactly 25" >&2
+  exit 1
+fi
 
 if rg -n '0\.2\.0|SNAPSHOT|publishLocal|macroparadise-scala3/(?!\.g8)' "$g8_root" --pcre2; then
   echo "template contains a forbidden unpublished or checkout-local reference" >&2
